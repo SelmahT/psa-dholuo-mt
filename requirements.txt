@@ -1,0 +1,13 @@
+pandas
+numpy
+requests
+beautifulsoup4
+selenium
+langdetect
+scikit-learn
+transformers
+torch
+sentencepiece
+sacrebleu
+jupyter
+matplotlib
