@@ -19,7 +19,7 @@ parallel dataset so PSAs can be automatically translated into Dholuo.
 ```
 data/
   raw/          # freshly collected/scraped PSA text, untouched
-  sources/      # list of where we collect data from (sources.csv)
+  sources/      # list of where we collect data from
   processed/    # cleaned, deduplicated, final parallel dataset
 notebooks/      # exploratory data analysis, experiments
 src/            # scraping, cleaning, and training scripts
@@ -39,11 +39,11 @@ docs/           # project brief, category list, planning docs
 
 | Member | Role |
 |---|---|
-| Person 1 | Finds where the data comes from (sources) |
-| Person 2 | Collects the messages (scraping) |
-| Person 3 | Organizes the spreadsheet (data engineering) |
-| Person 4 | Checks the Dholuo translations (QA) |
-| Person 5 | Keeps everyone on track (coordination, reporting) |
+| Patricia  | Finds where the data comes from (sources) |
+| Stephen | Collects the messages (scraping) |
+| Selmah | Organizes the spreadsheet (data engineering) |
+| Trizzah | Checks the Dholuo translations (QA) |
+| Rencia | Keeps everyone on track (coordination, reporting) |
 
 See `docs/week1_plan.docx` for the full breakdown.
 
