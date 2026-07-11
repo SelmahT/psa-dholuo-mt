@@ -41,10 +41,11 @@ parallel dataset so PSAs can be automatically translated into Dholuo.
    retried successfully.
 
 5. **Closing the volume gap:** To reach the 5,000-sentence target,
-   additional PSA-style sentences were generated across all 5 domains
-   (Health, Agriculture, Education, Security & Safety, Governance) using
-   a template-based approach grounded in real, current Kenyan public
-   service priorities, then translated the same way.
+   the dataset was augmented with additional PSA-style sentences across
+   all 5 domains, synthetically generated via a structured, rule-based
+   template approach grounded in real, current Kenyan public service
+   priorities — a standard technique for expanding low-resource parallel
+   corpora — then translated the same way.
 
 6. **Merge:** Original 2,903-row baseline (trimmed to English/Kiswahili/
    Dholuo only) combined with the new collected + generated data,
@@ -56,14 +57,23 @@ parallel dataset so PSAs can be automatically translated into Dholuo.
 |---|---|
 | Original baseline dataset | 2,903 |
 | Newly collected & cleaned (real, scraped) | ~382 |
-| Newly generated (template-based, translated) | ~1,857 |
+| Newly synthetically generated (template-based, translated) | ~1,857 |
 | **Total** | **~5,140** |
 
-**Note on data provenance:** a meaningful portion of the new data is
-template-generated rather than scraped or hand-written, due to the
-compressed timeline. This is disclosed here for transparency and should
-be reflected in the final project report.
+**Note on data provenance:** a meaningful portion of the new data was
+produced through synthetic data augmentation (rule-based template
+generation) rather than scraped or hand-written, due to the compressed
+timeline. This is a standard, recognized technique for expanding
+low-resource parallel corpora and is disclosed here for transparency;
+it should be reflected in the final project report.
 
+### Known limitations going into Week 2
+
+- No real transcribed spoken Dholuo yet (Ramogi FM / Nam Lolwe FM) —
+  everything is written/translated text, not authentic broadcast speech.
+- Machine-translated Dholuo has not yet had a full native-speaker review.
+- A handful of rows (~11) failed translation due to transient server
+  errors and were retried or excluded.
 
 ## Repo structure
 
@@ -123,3 +133,20 @@ Python library hasn't updated its language list yet. Use
 directly. This only fills in blank `Dholuo` cells, so it's safe to re-run
 without overwriting already-translated rows.
 
+## Next steps (Week 2)
+
+1. Preprocess `psa_dataset_final.csv` for model training (see
+   `docs/preprocessing_checklist.md`).
+2. Native-speaker review of Dholuo translations (Rencia).
+3. Manual transcription of a sample of Ramogi FM / Nam Lolwe FM audio to
+   add authentic spoken Dholuo.
+4. Fine-tune a translation model on the prepared dataset.
+
+## Contributing
+
+1. Create a branch per task: `git checkout -b <yourname>/<short-task-name>`
+2. Commit small, clear changes.
+3. Open a pull request before merging into `main`.
+4. Never commit raw scraped data with personal/sensitive info.
+5. Keep `data/raw/` untouched — if you need to clean something, save the
+   result to `data/interim/`, not over the raw file.
