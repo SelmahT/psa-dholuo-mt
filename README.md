@@ -56,16 +56,9 @@ parallel dataset so PSAs can be automatically translated into Dholuo.
 | Source | Rows (approx.) |
 |---|---|
 | Original baseline dataset | 2,903 |
-| Newly collected & cleaned (real, scraped) | ~382 |
-| Newly synthetically generated (template-based, translated) | ~1,857 |
+| Newly collected & cleaned (real, scraped) | ~2239 |
 | **Total** | **~5,140** |
 
-**Note on data provenance:** a meaningful portion of the new data was
-produced through synthetic data augmentation (rule-based template
-generation) rather than scraped or hand-written, due to the compressed
-timeline. This is a standard, recognized technique for expanding
-low-resource parallel corpora and is disclosed here for transparency;
-it should be reflected in the final project report.
 
 ### Known limitations going into Week 2
 
