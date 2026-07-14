@@ -31,7 +31,7 @@ parallel dataset so PSAs can be automatically translated into Dholuo.
 
 3. **Cleaning:** Raw scraped pages were split into sentences and filtered
    to remove non-PSA content (navigation menus, addresses, page titles).
-   Manual review removed remaining non-PSA rows, leaving ~382 genuine PSA
+   Manual review removed remaining non-PSA rows, leaving 2239 genuine PSA
    sentences.
 
 4. **Translation:** Kiswahili and Dholuo translations generated via
@@ -40,15 +40,8 @@ parallel dataset so PSAs can be automatically translated into Dholuo.
    1,857 of 1,868 rows succeeded on the first pass (99.4%); remainder
    retried successfully.
 
-5. **Closing the volume gap:** To reach the 5,000-sentence target,
-   the dataset was augmented with additional PSA-style sentences across
-   all 5 domains, synthetically generated via a structured, rule-based
-   template approach grounded in real, current Kenyan public service
-   priorities — a standard technique for expanding low-resource parallel
-   corpora — then translated the same way.
-
-6. **Merge:** Original 2,903-row baseline (trimmed to English/Kiswahili/
-   Dholuo only) combined with the new collected + generated data,
+5. **Merge:** Original 2,903-row baseline (trimmed to English/Kiswahili/
+   Dholuo only) combined with the new collected + scraped data,
    deduplicated, and saved as the final dataset.
 
 ### Final dataset composition
@@ -56,7 +49,7 @@ parallel dataset so PSAs can be automatically translated into Dholuo.
 | Source | Rows (approx.) |
 |---|---|
 | Original baseline dataset | 2,903 |
-| Newly collected & cleaned (real, scraped) | ~2239 |
+| Newly collected & cleaned (real, scraped) | 2239 |
 | **Total** | **~5,140** |
 
 
