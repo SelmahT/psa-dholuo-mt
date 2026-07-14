@@ -3,7 +3,7 @@ from langdetect import detect, DetectorFactory, LangDetectException
 
 DetectorFactory.seed = 42  # makes langdetect deterministic
 
-INPUT_FILE = "data/processed/psa_dataset_preprocessed_v2.csv"
+INPUT_FILE = "data/processed/psa_dataset_final_with_sources.csv"
 OUTPUT_FILE = "data/processed/psa_dataset_validated.csv"
 FLAGGED_FILE = "data/interim/rows_flagged_language_mismatch.csv"
 
