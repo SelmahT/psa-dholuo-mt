@@ -89,7 +89,7 @@ docs/           # project brief, PSA category list, planning docs
 | Stephen | Collects the messages (scraping) |
 | Selmah | Data engineering & preprocessing (technical lead) |
 | Rencia | Checks the Dholuo translations (QA) |
-| Trizzah | Coordination & report |
+| Trizah | Coordination & report |
 
 See `docs/PSA_Roles_Timeline.docx` for the full breakdown and deadlines.
 
