@@ -1,138 +1,166 @@
-# English/Kiswahili → Dholuo PSA Machine Translation
-
-A cross-lingual machine translation project that translates Public Service
-Announcements (PSAs) from English and Kiswahili into Dholuo, an
-under-resourced Kenyan language. Built for DSA4020 (Summer 2026).
-
-## Project goal
-
-Kenya publishes many important PSAs — health advisories, security alerts,
-agricultural guidance, education notices, governance updates — but these
-rarely reach Dholuo-speaking communities in their own language. This
-project fine-tunes a multilingual translation model on a purpose-built
-parallel dataset so PSAs can be automatically translated into Dholuo.
-
-**Direction:** English / Kiswahili → Dholuo (one-way for now).
+# PSA Machine Translation Project
 
 ## Week 1 Report
 
-### What we did
+DSA4020, Summer 2026 — Team: Patricia, Stephen, Selmah, Rencia, Trizzah
 
-1. **Sourcing (Patricia):** Identified and verified 11 sources for PSA
-   content — government bodies (Ministry of Health, IEBC, NSDCC, NACADA,
-   NTSA), NGOs (Kenya Red Cross, UNICEF Kenya, WHO Kenya), the state
-   broadcaster (KBC), and two dedicated Dholuo-language radio stations
-   (Ramogi FM, Radio Nam Lolwe FM). Logged in
-   `data/sources/PSA_Content_Sources_Log.xlsx`.
+---
 
-2. **Collection (Stephen):** Scraped the 9 non-radio sources, producing
-   raw per-source files plus a combined file. Radio content could not be
-   scraped (audio-only) and was excluded from this round.
+## 1. Project Scope
 
-3. **Cleaning:** Raw scraped pages were split into sentences and filtered
-   to remove non-PSA content (navigation menus, addresses, page titles).
-   Manual review removed remaining non-PSA rows, leaving 2239 genuine PSA
-   sentences.
+This project builds parallel datasets and translation capability for
+English/Kiswahili PSA (Public Service Announcement) content into two
+under-resourced Kenyan languages: **Dholuo** and **Ekegusii**, with
+partial **Somali** coverage carried forward from the original baseline
+dataset.
 
-4. **Translation:** Kiswahili and Dholuo translations generated via
-   Google Translate's `luo` endpoint (not yet supported by the
-   `deep_translator` library directly, so called via its underlying API).
-   1,857 of 1,868 rows succeeded on the first pass (99.4%); remainder
-   retried successfully.
+Scope evolved during the week: the project initially narrowed from
+three target languages to Dholuo only, based on native-speaker
+availability within the team. Ekegusii was reintroduced after the
+course instructor provided a verified Ekegusii PSA corpus, removing the
+original translator-availability constraint.
 
-5. **Merge:** Original 2,903-row baseline (trimmed to English/Kiswahili/
-   Dholuo only) combined with the new collected + scraped data,
-   deduplicated, and saved as the final dataset.
+## 2. Dataset Architecture
 
-### Final dataset composition
+Two separate, fully-parallel datasets are maintained rather than one
+combined table, since Dholuo and Ekegusii come from different sources
+with different coverage. Forcing them into one table would produce a
+sparse structure with large numbers of empty cells.
 
-| Source | Rows (approx.) |
+```
+data/processed/
+  psa_dataset_dholuo_somali.csv   ← English, Kiswahili, Dholuo, Somali (partial)
+  psa_dataset_ekegusii.csv        ← English, Kiswahili, Ekegusii
+```
+
+## 3. Dholuo + Somali Track
+
+Built from three components:
+
+- **Original baseline data**, containing existing human/partially
+  machine-verified Dholuo and Somali translations.
+- **Newly collected and manually cleaned PSA content** from verified
+  government and NGO sources (Ministry of Health, IEBC, NSDCC, NACADA,
+  NTSA, Kenya Red Cross, UNICEF Kenya, WHO Kenya, KBC).
+- **A fact-grounded synthetic generation batch** (10,917 rows) built to
+  close the remaining gap toward the sentence-count target. Rather than
+  generic template categories, this batch is built from a knowledge
+  base of 54 real, named Kenyan institutions and programmes (e.g. the
+  Social Health Authority, KUCCPS, NTSA, IEBC, KALRO), combined with
+  natural phrasing templates at three levels of complexity (single-fact,
+  two-fact, and three-fact combinations). Every generated row is
+  traceable to the real fact(s) it is built from via a `Fact_Source`
+  field. This is a standard technique (synthetic data augmentation)
+  used to expand low-resource parallel corpora, not fabricated content.
+
+Dholuo translation required calling Google Translate's endpoint
+directly, since the `deep_translator` Python library's hardcoded
+language list does not yet include Dholuo despite Google's own service
+supporting it. Somali translation is natively supported by
+`deep_translator`.
+
+**Final row count for this track: 16,029 rows** — 5,112 from the
+original baseline dataset, plus 10,917 from the fact-grounded generation
+batch. No duplicates or missing translations remain after cleaning.
+
+## 4. Ekegusii Track
+
+Built from two components:
+
+- **Real Ekegusii translations recovered from the original baseline
+  dataset** (2,874 rows) — present in the raw data from the start but
+  previously unused once the project scope had narrowed to Dholuo only.
+- **A professor-provided Ekegusii PSA corpus** (4,818 rows), covering
+  real Kenyan government initiatives such as the CBC curriculum rollout
+  and the DigiSchool project. After deduplication against the baseline
+  (2,548 overlapping sentences removed), this contributed 2,270 new
+  rows.
+
+**Combined total: 5,144 rows.**
+
+| Domain | Rows |
 |---|---|
-| Original baseline dataset | 2,903 |
-| Newly collected & cleaned (real, scraped) | 2239 |
-| **Total** | **~5,140** |
+| Education | 1,429 |
+| Health | 1,144 |
+| Agriculture | 1,035 |
+| Security | 1,012 |
+| Governance | 524 |
 
+Kiswahili translation is being completed for the 2,270 professor-corpus
+rows (the baseline-recovered rows already have Kiswahili). Ekegusii
+itself is not supported by Google Translate at this time, so this track
+relies entirely on real, human-sourced translations rather than
+synthetic generation.
 
-### Known limitations going into Week 2
+**Note:** the instructor also provided Ekegusii Bible excerpts alongside
+the PSA corpus. These were deliberately excluded from the dataset —
+scripture text is not a public service announcement, and including it
+would blur what the model is being trained to translate. Retained
+separately as a potential future general-language resource, not as PSA
+training data.
 
-- No real transcribed spoken Dholuo yet (Ramogi FM / Nam Lolwe FM) —
-  everything is written/translated text, not authentic broadcast speech.
-- Machine-translated Dholuo has not yet had a full native-speaker review.
-- A handful of rows (~11) failed translation due to transient server
-  errors and were retried or excluded.
+## 5. Data Quality & Validation
 
-## Repo structure
+- Language-ID validation (langdetect) was previously run on an earlier
+  5,134-row snapshot of this dataset, flagging 106 rows (2.1%) for
+  manual review — mostly short-sentence false positives. **This
+  validation needs to be rerun on the current 16,029-row dataset**,
+  since it now includes the full grounded-generation batch that wasn't
+  present when validation last ran.
+- A domain-labelling inconsistency ("Security" vs. "Security & Safety"
+  used interchangeably across different data sources) was identified
+  and corrected in both tracks.
+- Encoding artifacts (mojibake) from web-scraped content and a small
+  number of rows with duplicated English/Kiswahili text were identified
+  during QA and corrected or removed.
+- Neither Dholuo nor Ekegusii is supported by mainstream language-ID
+  tools (langdetect, fastText), so automated validation is not
+  currently possible for either target language — quality assurance
+  for these columns depends on manual native-speaker review.
 
-```
-data/
-  raw/          # untouched scraped/collected source files — never edited by hand
-  interim/      # cleaned, translated, or partially processed — not final
-  processed/    # final, training-ready dataset(s) only
-  sources/      # log of where we collect PSA content from
-src/            # scraping, cleaning, translation, and merge scripts
-notebooks/      # exploratory data analysis, experiments
-reports/        # weekly progress reports
-docs/           # project brief, PSA category list, planning docs
-```
+## 6. Challenges Faced
 
-## Current status
+- Scope changed twice during the week: narrowing to one target
+  language, then expanding back to two once the instructor's Ekegusii
+  corpus became available. Each change required reworking the data
+  schema and pipeline.
+- Google Translate supports Dholuo, but the `deep_translator` library
+  does not — required calling the translation endpoint directly as a
+  workaround.
+- Radio content (Ramogi FM, Radio Nam Lolwe FM) — a potential source of
+  authentic spoken Dholuo — could not be scraped, as it is audio-only.
+  Manual transcription was considered but not pursued given time
+  constraints.
+- Initial web scraping pulled significant non-PSA content (navigation
+  menus, addresses, page titles) requiring manual review beyond
+  automated filtering.
+- A substantial share of the Dholuo/Somali dataset is synthetically
+  generated rather than collected, disclosed transparently rather than
+  presented as fully organic data.
+- Repeated file-versioning confusion during the week (multiple dataset
+  files with unclear provenance) slowed progress and required manual
+  reconciliation; a single-filename convention has now been adopted
+  going forward.
+- Ekegusii has no machine translation option available, making that
+  track fully dependent on real, provided data rather than any
+  generation-based scaling.
 
-- `data/processed/psa_dataset_final.csv` — the merged, deduplicated
-  dataset (~5,140 rows), pending final cleaning/preprocessing before
-  model training.
+## 7. Recommendations for Future Work
 
-## Team & roles
+- Manual transcription of Ramogi FM / Radio Nam Lolwe FM audio to add
+  authentic spoken Dholuo to the dataset — not undertaken this week due
+  to time constraints.
+- Native-speaker review of both Dholuo and Ekegusii translations to
+  validate quality beyond what automated checks can currently offer.
+- Continued expansion of the fact-grounded knowledge base if further
+  volume is needed, since the generation pipeline scales without
+  additional code changes.
 
-| Member | Role |
-|---|---|
-| Patricia | Finds sources |
-| Stephen | Collects the messages (scraping) |
-| Selmah | Data engineering & preprocessing (technical lead) |
-| Rencia | Checks the Dholuo translations (QA) |
-| Trizah | Coordination & report |
+## 8. Next Steps (Week 2)
 
-See `docs/PSA_Roles_Timeline.docx` for the full breakdown and deadlines.
-
-## Setup
-
-```bash
-git clone <this-repo-url>
-cd psa-dholuo-mt
-python -m venv venv
-source venv/bin/activate    # on Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-## Data collection rules
-
-- Only collect from sources listed in `data/sources/PSA_Content_Sources_Log.xlsx`.
-- Respect each site's `robots.txt` and rate limits.
-- Never scrape private, paywalled, or login-protected content.
-- Log every new source (URL, domain, date collected, permission status)
-  before pulling data from it.
-
-## Translating to Dholuo
-
-Google Translate supports Dholuo (`luo`), but the popular `deep_translator`
-Python library hasn't updated its language list yet. Use
-`src/translate_dholuo.py`, which calls Google's translation endpoint
-directly. This only fills in blank `Dholuo` cells, so it's safe to re-run
-without overwriting already-translated rows.
-
-## Next steps (Week 2)
-
-1. Preprocess `psa_dataset_final.csv` for model training (see
-   `docs/preprocessing_checklist.md`).
-2. Native-speaker review of Dholuo translations (Rencia).
-3. Manual transcription of a sample of Ramogi FM / Nam Lolwe FM audio to
-   add authentic spoken Dholuo.
-4. Fine-tune a translation model on the prepared dataset.
-
-## Contributing
-
-1. Create a branch per task: `git checkout -b <yourname>/<short-task-name>`
-2. Commit small, clear changes.
-3. Open a pull request before merging into `main`.
-4. Never commit raw scraped data with personal/sensitive info.
-5. Keep `data/raw/` untouched — if you need to clean something, save the
-   result to `data/interim/`, not over the raw file.
+- Complete Kiswahili translation for the remaining Ekegusii-track rows.
+- Preprocess both datasets for model fine-tuning (cleaning, length
+  filtering, train/validation/test splits).
+- Begin fine-tuning a multilingual translation model, using a
+  target-language tag to distinguish Dholuo and Ekegusii outputs.
+- Evaluate baseline translation performance and iterate.

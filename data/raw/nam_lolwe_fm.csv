@@ -1,0 +1,2 @@
+source_name,domain_tag,url,date_collected,status,raw_text
+nam_lolwe_fm,Mixed,https://radionamlolwefm.com/,2026-07-10,"ERROR: HTTPSConnectionPool(host='radionamlolwefm.com', port=443): Max retries exceeded with url: / (Caused by NameResolutionError(""<urllib3.connection.HTTPSConnection object at 0x109c48890>: Failed to resolve 'radionamlolwefm.com' ([Errno 8] nodename nor servname provided, or not known)""))",

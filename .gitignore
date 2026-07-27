@@ -16,9 +16,6 @@ Thumbs.db
 .env
 *.key
 
-# Large / raw data (keep sample only, not full raw dumps)
-data/raw/*
-!data/raw/.gitkeep
 
 # Model checkpoints
 *.pt
