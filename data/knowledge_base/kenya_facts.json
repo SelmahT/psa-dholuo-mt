@@ -1,0 +1,66 @@
+{
+  "Health": [
+    {"id": "h01", "fact": "the Social Health Authority (SHA) registration for universal health coverage", "fact_sw": "usajili wa Mamlaka ya Afya ya Jamii (SHA) kwa bima ya afya kwa wote"},
+    {"id": "h02", "fact": "the Linda Mama programme providing free maternity care at public health facilities", "fact_sw": "mpango wa Linda Mama unaotoa huduma za uzazi bila malipo katika vituo vya afya vya umma"},
+    {"id": "h03", "fact": "routine childhood immunization under the Kenya Expanded Programme on Immunization (KEPI)", "fact_sw": "chanjo za kawaida za watoto chini ya Mpango wa Kenya wa Chanjo (KEPI)"},
+    {"id": "h04", "fact": "free tuberculosis (TB) diagnosis and treatment at public health facilities", "fact_sw": "uchunguzi na matibabu ya kifua kikuu (TB) bila malipo katika vituo vya afya vya umma"},
+    {"id": "h05", "fact": "distribution of long-lasting insecticidal mosquito nets to prevent malaria", "fact_sw": "usambazaji wa vyandarua vinavyodumu kwa muda mrefu kuzuia malaria"},
+    {"id": "h06", "fact": "HPV vaccination for adolescent girls to prevent cervical cancer", "fact_sw": "chanjo ya HPV kwa wasichana balehe kuzuia saratani ya shingo ya kizazi"},
+    {"id": "h07", "fact": "community health promoters (CHPs) offering household health education and referrals", "fact_sw": "wahamasishaji wa afya ya jamii (CHP) wanaotoa elimu ya afya na rufaa nyumbani"},
+    {"id": "h08", "fact": "free HIV testing and counselling services at public health facilities", "fact_sw": "huduma za bure za upimaji na ushauri wa VVU katika vituo vya afya vya umma"},
+    {"id": "h09", "fact": "screening for non-communicable diseases such as diabetes and hypertension", "fact_sw": "uchunguzi wa magonjwa yasiyoambukiza kama kisukari na shinikizo la damu"},
+    {"id": "h10", "fact": "mental health support services under the national mental health action plan", "fact_sw": "huduma za usaidizi wa afya ya akili chini ya mpango wa kitaifa wa afya ya akili"},
+    {"id": "h11", "fact": "child growth monitoring and Vitamin A supplementation during Malezi Bora week", "fact_sw": "ufuatiliaji wa ukuaji wa mtoto na virutubisho vya Vitamini A wakati wa wiki ya Malezi Bora"},
+    {"id": "h12", "fact": "family planning services available free of charge at public clinics", "fact_sw": "huduma za uzazi wa mpango zinazopatikana bure katika kliniki za umma"}
+  ],
+  "Agriculture": [
+    {"id": "a01", "fact": "the fertiliser e-Voucher subsidy programme through NCPB depots", "fact_sw": "mpango wa ruzuku ya mbolea wa e-Voucher kupitia maghala ya NCPB"},
+    {"id": "a02", "fact": "farmer registration on the Kenya Integrated Agricultural Management Information System (KIAMIS)", "fact_sw": "usajili wa wakulima kwenye mfumo wa KIAMIS"},
+    {"id": "a03", "fact": "extension advice from Kenya Agricultural and Livestock Research Organization (KALRO) officers", "fact_sw": "ushauri wa ugani kutoka kwa maafisa wa KALRO"},
+    {"id": "a04", "fact": "livestock vaccination campaigns against Foot-and-Mouth Disease run by county veterinary offices", "fact_sw": "kampeni za chanjo za mifugo dhidi ya ugonjwa wa miguu na midomo zinazoendeshwa na ofisi za mifugo za kaunti"},
+    {"id": "a05", "fact": "the National Agricultural and Rural Inclusive Growth Project (NARIGP) supporting farmer groups", "fact_sw": "mradi wa NARIGP unaosaidia vikundi vya wakulima"},
+    {"id": "a06", "fact": "the Kenya Climate-Smart Agriculture Project (KCSAP) promoting drought-resilient farming", "fact_sw": "mradi wa KCSAP unaohamasisha kilimo kinachostahimili ukame"},
+    {"id": "a07", "fact": "grain storage through the Warehouse Receipt System to reduce post-harvest losses", "fact_sw": "uhifadhi wa nafaka kupitia mfumo wa Warehouse Receipt kupunguza upotevu baada ya mavuno"},
+    {"id": "a08", "fact": "the Coffee Cherry Advance Revolving Fund supporting coffee farmers", "fact_sw": "Mfuko wa Coffee Cherry Advance unaosaidia wakulima wa kahawa"},
+    {"id": "a09", "fact": "county agricultural extension offices offering free soil testing advice", "fact_sw": "ofisi za ugani za kilimo za kaunti zinazotoa ushauri wa bure wa upimaji wa udongo"},
+    {"id": "a10", "fact": "surveillance and reporting of fall armyworm outbreaks to agricultural officers", "fact_sw": "ufuatiliaji na uripoti wa milipuko ya funza jeshi kwa maafisa wa kilimo"},
+    {"id": "a11", "fact": "the National Cereals and Produce Board's grain purchase programme for maize farmers", "fact_sw": "mpango wa NCPB wa ununuzi wa nafaka kwa wakulima wa mahindi"},
+    {"id": "a12", "fact": "livestock insurance schemes protecting pastoralist households against drought losses", "fact_sw": "mipango ya bima ya mifugo inayolinda kaya za wafugaji dhidi ya hasara za ukame"}
+  ],
+  "Education": [
+    {"id": "e01", "fact": "the transition to Junior Secondary School (JSS) under the Competency Based Curriculum (CBC)", "fact_sw": "mpito kwenda shule ya upili ya chini (JSS) chini ya mtaala wa CBC"},
+    {"id": "e02", "fact": "the KUCCPS placement portal for university and college applications", "fact_sw": "lango la KUCCPS la maombi ya vyuo vikuu na vyuo"},
+    {"id": "e03", "fact": "Higher Education Loans Board (HELB) loan and bursary applications", "fact_sw": "maombi ya mkopo na bursary ya HELB"},
+    {"id": "e04", "fact": "NG-CDF bursary applications for needy students through local constituency offices", "fact_sw": "maombi ya bursary ya NG-CDF kwa wanafunzi wenye uhitaji kupitia ofisi za eneobunge"},
+    {"id": "e05", "fact": "the national school feeding programme supporting learners in public primary schools", "fact_sw": "mpango wa kitaifa wa chakula shuleni unaosaidia wanafunzi wa shule za msingi za umma"},
+    {"id": "e06", "fact": "free primary and free day secondary education policy in public schools", "fact_sw": "sera ya elimu ya msingi na sekondari ya kutwa bila malipo katika shule za umma"},
+    {"id": "e07", "fact": "the Digital Literacy Programme providing learning devices to primary schools", "fact_sw": "Mpango wa Ujuzi wa Kidijitali unaotoa vifaa vya kujifunzia kwa shule za msingi"},
+    {"id": "e08", "fact": "KCSE and KCPE examination registration through the Kenya National Examinations Council (KNEC)", "fact_sw": "usajili wa mitihani ya KCSE na KCPE kupitia KNEC"},
+    {"id": "e09", "fact": "special needs and inclusive education support units in public schools", "fact_sw": "vitengo vya elimu maalum na jumuishi katika shule za umma"},
+    {"id": "e10", "fact": "Teachers Service Commission (TSC) recruitment of teachers for public schools", "fact_sw": "uajiri wa walimu wa TSC kwa shule za umma"}
+  ],
+  "Security": [
+    {"id": "s01", "fact": "the Nyumba Kumi community policing initiative for neighbourhood security", "fact_sw": "mpango wa Nyumba Kumi wa ulinzi wa jamii kwa usalama wa mitaa"},
+    {"id": "s02", "fact": "the toll-free gender-based violence (GBV) helpline for reporting abuse", "fact_sw": "laini ya bure ya unyanyasaji wa kijinsia (GBV) ya kuripoti unyanyasaji"},
+    {"id": "s03", "fact": "NTSA road safety campaigns on seatbelt use and speed limits", "fact_sw": "kampeni za usalama barabarani za NTSA kuhusu matumizi ya mkanda wa usalama na mwendo"},
+    {"id": "s04", "fact": "the Anti-FGM Board's campaigns against female genital mutilation", "fact_sw": "kampeni za Bodi ya Kupambana na Ukeketaji dhidi ya ukeketaji wa wanawake"},
+    {"id": "s05", "fact": "Huduma Namba registration under the national identity management system", "fact_sw": "usajili wa Huduma Namba chini ya mfumo wa kitaifa wa usimamizi wa utambulisho"},
+    {"id": "s06", "fact": "the National Disaster Operations Centre's flood and drought early-warning alerts", "fact_sw": "tahadhari za mapema za mafuriko na ukame kutoka Kituo cha Kitaifa cha Uendeshaji wa Maafa"},
+    {"id": "s07", "fact": "Kenya Red Cross emergency response teams for disaster-affected communities", "fact_sw": "timu za majibu ya dharura za Msalaba Mwekundu wa Kenya kwa jamii zilizoathiriwa na maafa"},
+    {"id": "s08", "fact": "the Directorate of Criminal Investigations (DCI) crime-reporting hotline", "fact_sw": "laini ya kuripoti uhalifu ya Idara ya Upelelezi wa Jinai (DCI)"},
+    {"id": "s09", "fact": "NACADA's campaigns against drug and substance abuse among youth", "fact_sw": "kampeni za NACADA dhidi ya matumizi ya dawa za kulevya miongoni mwa vijana"},
+    {"id": "s10", "fact": "reporting cybercrime under the Computer Misuse and Cybercrimes Act", "fact_sw": "kuripoti uhalifu wa mtandaoni chini ya Sheria ya Matumizi Mabaya ya Kompyuta na Uhalifu wa Mtandaoni"}
+  ],
+  "Governance": [
+    {"id": "g01", "fact": "IEBC voter registration ahead of elections", "fact_sw": "usajili wa wapiga kura wa IEBC kabla ya uchaguzi"},
+    {"id": "g02", "fact": "accessing government services through Huduma Centres", "fact_sw": "kupata huduma za serikali kupitia Vituo vya Huduma"},
+    {"id": "g03", "fact": "applying for official documents through the eCitizen online platform", "fact_sw": "kuomba hati rasmi kupitia mfumo wa mtandaoni wa eCitizen"},
+    {"id": "g04", "fact": "public participation forums in county budget-making processes", "fact_sw": "mabaraza ya ushiriki wa umma katika mchakato wa bajeti ya kaunti"},
+    {"id": "g05", "fact": "reporting corruption to the Ethics and Anti-Corruption Commission (EACC)", "fact_sw": "kuripoti ufisadi kwa Tume ya Maadili na Kupambana na Ufisadi (EACC)"},
+    {"id": "g06", "fact": "filing police oversight complaints with the Independent Policing Oversight Authority (IPOA)", "fact_sw": "kuwasilisha malalamiko ya usimamizi wa polisi kwa IPOA"},
+    {"id": "g07", "fact": "accessing government information under the Access to Information Act", "fact_sw": "kupata taarifa za serikali chini ya Sheria ya Upatikanaji wa Taarifa"},
+    {"id": "g08", "fact": "resolving small disputes through the Small Claims Court", "fact_sw": "kutatua migogoro midogo kupitia Mahakama ya Madai Madogo"},
+    {"id": "g09", "fact": "National Government Affirmative Action Fund (NGAAF) support for vulnerable groups", "fact_sw": "usaidizi wa Mfuko wa NGAAF kwa makundi hatarini"},
+    {"id": "g10", "fact": "county government notices on devolved service delivery", "fact_sw": "matangazo ya serikali ya kaunti kuhusu utoaji wa huduma za ugatuzi"}
+  ]
+}
