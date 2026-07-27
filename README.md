@@ -2,7 +2,7 @@
 
 ## Week 1 Report
 
-DSA4020, Summer 2026 — Team: Patricia, Stephen, Selmah, Rencia, Trizzah
+DSA4020, Summer 2026 — Team: Patricia, Stephen, Selmah, Rencia, Trizah
 
 ---
 
