@@ -164,3 +164,237 @@ training data.
 - Begin fine-tuning a multilingual translation model, using a
   target-language tag to distinguish Dholuo and Ekegusii outputs.
 - Evaluate baseline translation performance and iterate.
+  
+
+# Week 2 Report — Data Validation, Metadata Enrichment & Preprocessing
+
+---
+
+## 1. Objective
+
+Week 1 produced a merged, deduplicated dataset of roughly 5,140 English–Kiswahili–Dholuo
+PSA sentence pairs, but that dataset was not yet trustworthy or clean enough for model
+training. Week 2 focused on three things:
+
+1. Verifying and documenting **where each row actually came from** (provenance).
+2. **Validating translation quality** at scale, using automated checks where possible.
+3. **Cleaning and structuring** the dataset into a form a translation model can be
+   trained on, including a proper train/validation/test split.
+
+The output of this week is the dataset that Week 3 (modeling) will consume directly.
+
+---
+
+## 2. What We Did
+
+### 2.1 Metadata Enrichment (`src/add_metadata.py`)
+
+Every row in the merged dataset was tagged with a `Source`, `Date`, and `Metadata`
+column so provenance is traceable:
+
+- Rows from the original baseline dataset (PSA_Id 1–2,903) are labeled
+  `Original dataset`, since no scrape record exists for them.
+- Rows collected via scraping (PSA_Id 2,904 onward) could not be matched
+  row-for-row against the raw scrape log, so each row was tagged with a
+  **probable** source based on its Domain (e.g. Health rows are attributed to
+  the Ministry of Health, WHO Kenya, or NSDCC on a rotating basis). Every one
+  of these rows is explicitly marked `Inferred (probable source, not
+  row-verified)` in the Metadata column so the approximation stays visible
+  and can be corrected later if exact provenance is recovered.
+
+This produced `data/processed/psa_dataset_final_with_sources.csv`.
+
+### 2.2 Automated Language Validation (`src/language_detection.py`)
+
+To catch rows where a translation is missing, mismatched, or in the wrong
+language, we ran automated language identification on the English and
+Kiswahili columns using `langdetect`:
+
+- English rows are expected to detect as `en`; Kiswahili rows as `sw`.
+- Rather than auto-deleting mismatches (short sentences frequently
+  misclassify), every row that failed either check was flagged for manual
+  review rather than removed.
+- **106 of 5,134 rows (2.1%)** were flagged and saved to
+  `data/interim/rows_flagged_language_mismatch.csv` for follow-up.
+- Dholuo could not be automatically validated — neither `langdetect` nor
+  standard fastText language-ID models cover Dholuo. This column still
+  requires manual, native-speaker review (see Section 4).
+
+This produced `data/processed/psa_dataset_validated.csv`.
+
+### 2.3 Preprocessing Pipeline (`notebooks/Preprocessing_nlp.ipynb`)
+
+With a validated dataset in hand, we ran a full preprocessing pass covering
+the following stages:
+
+**Step 1–2: Load and scope the data.** Loaded
+`psa_dataset_final_with_sources.csv` and narrowed the working columns to
+`PSA_Id`, `Domain`, `English`, `Kiswahili`, and `Dholuo` — the fields the
+translation task actually needs.
+
+**Step 3: Fix character-encoding corruption.** Roughly 170 English rows,
+79 Kiswahili rows, and 1 Dholuo row contained mojibake (double-encoded
+characters from an earlier processing step). Most were repaired
+automatically with `ftfy`; 22 Kiswahili rows were corrupted twice over and
+needed a manual second pass targeting the specific leftover byte pattern.
+
+**Step 4: Missing values and duplicates.** No null or empty text and no
+exact full-row duplicates were found. A small number of rows were flagged
+(not removed) where a Kiswahili or Dholuo translation was reused across
+multiple, genuinely different English sentences — a possible upstream
+translation-reuse issue worth watching in model output.
+
+**Step 5: Text normalization.** Standardized whitespace and applied
+Unicode NFC normalization across all three language columns. Removed
+bracketed topic-tag prefixes (e.g. `[KUCCPS Portal]`) that appeared in the
+English and Kiswahili columns as metadata labels rather than actual PSA
+content. Casing was deliberately left untouched, since PSAs often use
+capitalization for emphasis (e.g. "SASA!"), which carries meaning rather
+than being noise.
+
+**Step 6: Sentence-length and outlier review.** Identified and removed one
+broken placeholder row (PSA_Id 198) that contained literal column-name
+artifacts instead of real content. Reviewed the shortest and longest rows
+in the dataset and confirmed both extremes were legitimate PSA content
+(short campaign slogans and longer-form health messaging), so no
+length-based filtering was applied.
+
+**Step 7: Tokenization.** English and Kiswahili were tokenized with NLTK's
+standard word tokenizer. Dholuo has no mature NLP tokenizer available, so a
+transparent whitespace-and-punctuation tokenizer was used instead.
+
+**Step 8: Code-switching detection.** PSAs regularly keep certain English
+terms untranslated inside Kiswahili and Dholuo text (acronyms like KCSE,
+KUCCPS, JSS; institution names; technical terms like COVID-19). A generic
+English-dictionary lookup produced too many false positives (common
+Kiswahili words coincidentally match English wordlist entries), so
+detection was instead based on whether a capitalized term from the English
+source sentence appears verbatim in that row's translation — direct
+evidence of a genuinely borrowed term.
+
+**Step 9: Glossary construction.** Built a glossary of 1,181 recurring
+institutional terms, acronyms, and program names from the code-switching
+analysis, saved to `data/processed/psa_glossary.csv`. This serves both as a
+reference for native-speaker reviewers confirming these terms should stay
+untranslated, and later as a fixed vocabulary the translation model can be
+instructed to preserve.
+
+**Step 10–11: Exploratory data analysis.** Generated domain distribution,
+word-count, and vocabulary-size statistics per language. After merging the
+"Security" and "Security & Safety" domain labels, the dataset is fairly
+balanced: Security & Safety is the largest domain at roughly 24%, with the
+remaining four domains spread between 17% and 21%.
+
+**Step 12: Removal of broken/misaligned rows.** Row-level statistics
+surfaced 21 rows with genuine data-quality defects — degenerate repeated
+Dholuo text (9 rows), Dholuo translations that were just bare numbers or
+dates (7 rows), and rows where the Dholuo text was fluent but unrelated in
+meaning to its English source (4 rows). These were removed from the main
+cleaned dataset and saved separately rather than discarded, so they remain
+available for manual correction or re-translation.
+
+**Step 13: Native-speaker validation subset.** Sampled roughly 500
+sentences, stratified by Domain, into a standalone review file with empty
+columns for reviewers to mark translation accuracy and leave comments.
+This subset is a quality-review sample, not held-out test data — verified
+rows can optionally be promoted into the test set later for a
+higher-confidence evaluation benchmark.
+
+**Step 14: Train/validation/test split.** Split the cleaned dataset 80/10/10
+into train, dev, and test sets, stratified by Domain, using a fixed random
+seed for reproducibility.
+
+---
+
+## 3. Final Dataset Composition
+
+| Split | Rows |
+|---|---|
+| Train | 4,089 |
+| Dev | 511 |
+| Test | 512 |
+| **Total (post-cleaning)** | **5,112** |
+
+| Domain (train split) | Rows |
+|---|---|
+| Security & Safety | 986 |
+| Education | 839 |
+| Health | 798 |
+| Governance | 763 |
+| Agriculture | 703 |
+
+Additional artifacts produced this week:
+
+| File | Purpose |
+|---|---|
+| `data/processed/psa_dataset_final_with_sources.csv` | Merged dataset with per-row provenance |
+| `data/processed/psa_dataset_validated.csv` | Same, with language-ID validation columns |
+| `data/interim/rows_flagged_language_mismatch.csv` | 106 rows flagged for manual review |
+| `data/processed/psa_glossary.csv` | 1,181-term glossary of untranslated institutional terms |
+| `data/processed/psa_train.csv`, `psa_dev.csv`, `psa_test.csv` | Final, training-ready splits |
+
+---
+
+## 4. Known Limitations Going Into Week 3
+
+- **Dholuo has no automated validation.** Language-ID tools do not support
+  Dholuo, so translation quality for that column still depends on manual,
+  native-speaker review (Rencia), which is in progress but not yet complete.
+- **106 rows remain flagged** for English/Kiswahili language mismatches and
+  have not yet been individually resolved.
+- **Source attribution for scraped rows is probabilistic, not exact.** Every
+  scraped-portion row is tagged with a domain-plausible source rather than a
+  row-verified one; this is clearly marked in the data but should not be
+  treated as ground truth provenance.
+- **Translation reuse.** A small number of rows share an identical
+  Kiswahili or Dholuo translation across different English source sentences.
+  These were flagged, not removed, and may slightly reduce lexical
+  diversity in training.
+- **No authentic spoken Dholuo yet.** As noted in Week 1, Ramogi FM and
+  Nam Lolwe FM content is still audio-only and has not been transcribed.
+
+---
+
+## 5. Next Steps (Week 3)
+
+1. Resolve the 106 flagged language-mismatch rows and complete
+   native-speaker review of the ~500-row validation subset.
+2. Begin model fine-tuning using the finalized train/dev/test splits
+   (see `notebooks/transfer_learning.ipynb`), comparing mT5-small and
+   NLLB-200 Distilled as candidate multilingual base models.
+3. Evaluate model output using BLEU, SacreBLEU, and chrF metrics against
+   the test split.
+4. Continue pursuing transcription of Ramogi FM / Nam Lolwe FM audio to
+   introduce authentic spoken Dholuo into the training data.
+
+---
+
+## 6. Repo Structure (Updated)
+
+```
+data/
+  raw/          # untouched scraped/collected source files — never edited by hand
+  interim/      # cleaned, translated, or partially processed — not final
+                #   includes rows flagged during validation/cleaning steps
+  processed/    # final, training-ready dataset(s), glossary, and splits
+  sources/      # log of where we collect PSA content from
+src/            # scraping, cleaning, validation, metadata, and merge scripts
+notebooks/      # preprocessing notebook (this week) and modeling notebook (next)
+reports/        # weekly progress reports
+docs/           # project brief, PSA category list, planning docs
+```
+
+---
+
+## 7. Team & Roles
+
+| Member | Role | Week 2 Contribution |
+|---|---|---|
+| Patricia | Finds sources | Source log maintenance |
+| Stephen | Collects the messages (scraping) | Supported provenance mapping |
+| Selmah | Data engineering & preprocessing (technical lead) | Metadata enrichment, validation, and preprocessing pipeline |
+| Rencia | Checks the Dholuo translations (QA) | Native-speaker review (in progress) |
+| Trizzah | Coordination & report | Week 2 documentation |
+
+See `docs/PSA_Roles_Timeline.docx` for the full role and deadline breakdown.
+
