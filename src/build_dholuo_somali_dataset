@@ -1,7 +1,7 @@
 import pandas as pd
 
 BASELINE_FILE = "data/interim/psa_dataset_validated.csv"              # original, has all 5 languages
-GROUNDED_FILE = "data/interim/grounded_generated_batch.csv"        # new batch (Dholuo filled via Colab)
+GROUNDED_FILE = "data/interim/grounded_generated_batch_full.csv"        # new batch (Dholuo filled via Colab)
 OUTPUT_FILE = "data/processed/psa_dataset_dholuo_somali.csv"
 
 baseline = pd.read_csv(BASELINE_FILE)
@@ -17,8 +17,7 @@ baseline_trimmed["Class"] = "PSA"  # this baseline file has no Class column — 
 baseline_trimmed["Source"] = "original_baseline_dataset"
 
 # ---------- Grounded batch: no Somali data, add empty column ----------
-grounded_trimmed = grounded[["PSA_Id", "Domain", "Class", "English", "Kiswahili", "Dholuo"]].copy()
-grounded_trimmed["Somali"] = None
+grounded_trimmed = grounded[["PSA_Id", "Domain", "Class", "English", "Kiswahili", "Dholuo", "Somali"]].copy()
 grounded_trimmed["Source"] = "grounded_generated"
 
 # ---------- Combine ----------
