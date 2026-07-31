@@ -1,0 +1,290 @@
+Token,Frequency,Full_Name,Source,Canonical_Dholuo,Canonical_Somali,Needs_Review
+HIV,1136,Human Immunodeficiency Virus,manual_lookup,,,False
+SHA,1075,Social Health Authority,kenya_facts.json,,,False
+HPV,1057,Human Papillomavirus,manual_lookup,,,False
+KALRO,1045,Kenya Agricultural and Livestock Research Organization,kenya_facts.json,,,False
+NCPB,1044,National Cereals and Produce Board,manual_lookup,,,False
+KIAMIS,1039,Kenya Integrated Agricultural Management Information System,kenya_facts.json,,,False
+KCSAP,1027,Kenya Climate-Smart Agriculture Project,kenya_facts.json,,,False
+NARIGP,1024,National Agricultural and Rural Inclusive Growth Project,kenya_facts.json,,,False
+KEPI,1020,Kenya Expanded Programme on Immunization,kenya_facts.json,,,False
+TB,885,Tuberculosis,manual_lookup,,,False
+EACC,875,Ethics and Anti-Corruption Commission,kenya_facts.json,,,False
+IEBC,865,Independent Electoral and Boundaries Commission,manual_lookup,,,False
+KCSE,827,Kenya Certificate of Secondary Education,manual_lookup,,,False
+CBC,817,Competency Based Curriculum,kenya_facts.json,,,False
+KUCCPS,800,Kenya Universities and Colleges Central Placement Service,manual_lookup,,,False
+KNEC,796,KCSE and KCPE examination registration through the Kenya National Examinations Council,kenya_facts.json,,,False
+IPOA,791,Independent Policing Oversight Authority,kenya_facts.json,,,False
+NACADA,776,National Authority for the Campaign Against Alcohol and Drug Abuse,manual_lookup,,,False
+NTSA,776,National Transport and Safety Authority,manual_lookup,,,False
+KCPE,769,Kenya Certificate of Primary Education,manual_lookup,,,False
+NG-CDF,768,,needs_review,,,True
+JSS,768,Junior Secondary School,kenya_facts.json,,,False
+DCI,761,Directorate of Criminal Investigations,kenya_facts.json,,,False
+HELB,758,Higher Education Loans Board,kenya_facts.json,,,False
+TSC,708,Teachers Service Commission,kenya_facts.json,,,False
+GBV,662,,needs_review,,,True
+NGAAF,621,National Government Affirmative Action Fund,kenya_facts.json,,,False
+FGM,202,,needs_review,,,True
+PSA,108,,needs_review,,,True
+COVID,85,,needs_review,,,True
+WHO,74,World Health Organization,manual_lookup,,,False
+TVET,64,,needs_review,,,True
+MAR,60,,needs_review,,,True
+NPS,35,,needs_review,,,True
+CS,29,,needs_review,,,True
+KPSEA,26,,needs_review,,,True
+ID,24,,needs_review,,,True
+COP,23,,needs_review,,,True
+PS,22,,needs_review,,,True
+CSA,21,,needs_review,,,True
+KRA,21,,needs_review,,,True
+SMS,21,,needs_review,,,True
+IFAD,18,,needs_review,,,True
+AIDS,18,,needs_review,,,True
+KICD,18,,needs_review,,,True
+TIMS,16,,needs_review,,,True
+AATF,16,,needs_review,,,True
+KENYA,16,,needs_review,,,True
+CBA,14,,needs_review,,,True
+NSDCC,14,,needs_review,,,True
+AI,14,,needs_review,,,True
+UHC,12,,needs_review,,,True
+NHIF,11,,needs_review,,,True
+CBK,10,,needs_review,,,True
+TUO,8,,needs_review,,,True
+TPAD,8,,needs_review,,,True
+ACAT,8,,needs_review,,,True
+PSC,8,,needs_review,,,True
+KJSEA,8,,needs_review,,,True
+APS,8,,needs_review,,,True
+CBD,8,,needs_review,,,True
+KICC,8,,needs_review,,,True
+PIN,7,,needs_review,,,True
+TAR,7,,needs_review,,,True
+AYAKI,7,,needs_review,,,True
+MAY,7,,needs_review,,,True
+CAAFIMAADKA,7,,needs_review,,,True
+ICT,7,,needs_review,,,True
+NPSC,6,,needs_review,,,True
+ABICH,6,,needs_review,,,True
+CHOTH,6,,needs_review,,,True
+KDF,6,,needs_review,,,True
+HSS,6,,needs_review,,,True
+KRCS,6,,needs_review,,,True
+BBI,6,,needs_review,,,True
+SITREP,6,,needs_review,,,True
+CHALO,6,,needs_review,,,True
+KNCHR,6,,needs_review,,,True
+PRWG,6,,needs_review,,,True
+IG,6,,needs_review,,,True
+MNA,6,,needs_review,,,True
+AP,6,,needs_review,,,True
+PCVE,6,,needs_review,,,True
+CAW,6,,needs_review,,,True
+UDA,6,,needs_review,,,True
+CCTV,6,,needs_review,,,True
+AM,6,,needs_review,,,True
+ASAL,6,,needs_review,,,True
+XAALADDA,6,,needs_review,,,True
+UNICEF,6,,needs_review,,,True
+OMR,6,,needs_review,,,True
+KNAP,6,,needs_review,,,True
+KBC,6,,needs_review,,,True
+WARBIXINTA,6,,needs_review,,,True
+YIER,5,,needs_review,,,True
+TUDO,5,,needs_review,,,True
+NSSF,5,National Social Security Fund,manual_lookup,,,False
+WASAARADDA,5,,needs_review,,,True
+IPM,5,,needs_review,,,True
+WECHE,5,,needs_review,,,True
+NCRC,5,,needs_review,,,True
+RIPOT,5,,needs_review,,,True
+KINDEGI,5,,needs_review,,,True
+GM,5,,needs_review,,,True
+NGO,5,Non-Governmental Organization,manual_lookup,,,False
+IMLU,4,,needs_review,,,True
+IOM,4,International Organization for Migration,manual_lookup,,,False
+KEMRI,4,Kenya Medical Research Institute,manual_lookup,,,False
+USAID,4,United States Agency for International Development,manual_lookup,,,False
+VPN,4,Virtual Private Network,manual_lookup,,,False
+MOH,4,Ministry of Health,manual_lookup,,,False
+KNH,4,Kenyatta National Hospital,manual_lookup,,,False
+MCA,4,Member of County Assembly,manual_lookup,,,False
+NCTC,4,,needs_review,,,True
+TALLAALKA,4,,needs_review,,,True
+KEPHIS,4,Kenya Plant Health Inspectorate Service,manual_lookup,,,False
+CHOKO,4,,needs_review,,,True
+NYS,4,National Youth Service,manual_lookup,,,False
+TVETA,4,Technical and Vocational Education and Training Authority,manual_lookup,,,False
+WRA,4,,needs_review,,,True
+OGP,4,,needs_review,,,True
+AAR,4,,needs_review,,,True
+GE,4,,needs_review,,,True
+STEM,4,"Science, Technology, Engineering, and Mathematics",manual_lookup,,,False
+ANC,4,Antenatal Care,manual_lookup,,,False
+ATM,4,Automated Teller Machine,manual_lookup,,,False
+SUNCSA,4,,needs_review,,,True
+IED,4,,needs_review,,,True
+UK-CGIAR,4,,needs_review,,,True
+DHAGEYSO,4,,needs_review,,,True
+CNAP,4,,needs_review,,,True
+WHS,4,,needs_review,,,True
+OFFICE,4,,needs_review,,,True
+KMD,4,,needs_review,,,True
+IT,3,Information Technology,manual_lookup,,,False
+FAO,3,Food and Agriculture Organization,manual_lookup,,,False
+ATPU,3,,needs_review,,,True
+TV,3,,needs_review,,,True
+CSPM,3,,needs_review,,,True
+EU,3,European Union,manual_lookup,,,False
+NOW,3,,needs_review,,,True
+CRB,3,,needs_review,,,True
+ICIPE,3,,needs_review,,,True
+DIIWAAN,3,,needs_review,,,True
+KWS,3,Kenya Wildlife Service,manual_lookup,,,False
+UN,3,United Nations,manual_lookup,,,False
+WTO,3,,needs_review,,,True
+WRS,3,,needs_review,,,True
+CVR,3,,needs_review,,,True
+MPESA,3,,needs_review,,,True
+KCHR,3,,needs_review,,,True
+USB,3,,needs_review,,,True
+IGAD,3,Intergovernmental Authority on Development,manual_lookup,,,False
+PTSD,3,,needs_review,,,True
+JOGO,3,,needs_review,,,True
+WUOTH,2,,needs_review,,,True
+NSF,2,,needs_review,,,True
+PINY,2,,needs_review,,,True
+CHEN,2,,needs_review,,,True
+DL,2,,needs_review,,,True
+KMTC,2,Kenya Medical Training College,manual_lookup,,,False
+RUSH,2,,needs_review,,,True
+CA,2,,needs_review,,,True
+ILRI,2,,needs_review,,,True
+MEDO,2,,needs_review,,,True
+CBROP,2,,needs_review,,,True
+ADP,2,,needs_review,,,True
+MM,2,,needs_review,,,True
+AD,2,,needs_review,,,True
+ETIMS,2,,needs_review,,,True
+DOORASHADA,2,,needs_review,,,True
+KERRA,2,,needs_review,,,True
+HADDII,2,,needs_review,,,True
+DCP,2,,needs_review,,,True
+CHIS,2,,needs_review,,,True
+NMS,2,,needs_review,,,True
+IYADOO,2,,needs_review,,,True
+ARTICLE,2,,needs_review,,,True
+FM,2,,needs_review,,,True
+KIEMS,2,,needs_review,,,True
+FPE,2,,needs_review,,,True
+REG,2,,needs_review,,,True
+DAAWO,2,,needs_review,,,True
+SRH,2,,needs_review,,,True
+MP,2,Member of Parliament,manual_lookup,,,False
+CSAP,2,,needs_review,,,True
+DRO,2,,needs_review,,,True
+NPW,2,,needs_review,,,True
+GOOD,2,,needs_review,,,True
+PCR,2,Polymerase Chain Reaction,manual_lookup,,,False
+MOTIMORE,2,,needs_review,,,True
+KCRS,2,,needs_review,,,True
+BULURO,2,,needs_review,,,True
+GOYO,2,,needs_review,,,True
+CHAKO,2,,needs_review,,,True
+III,2,,needs_review,,,True
+IFO,2,,needs_review,,,True
+AKU,2,,needs_review,,,True
+GELIN,2,,needs_review,,,True
+WASH,2,,needs_review,,,True
+CBHIS,2,,needs_review,,,True
+KAA,2,,needs_review,,,True
+ODM,2,,needs_review,,,True
+IBAD,2,,needs_review,,,True
+FOP,2,,needs_review,,,True
+BMI,2,Body Mass Index,manual_lookup,,,False
+FKE,2,,needs_review,,,True
+CHV,2,,needs_review,,,True
+MTRH,2,,needs_review,,,True
+BCG,2,,needs_review,,,True
+CGIAR,2,,needs_review,,,True
+PBR,2,,needs_review,,,True
+IFD,2,,needs_review,,,True
+DHS,2,Demographic and Health Survey,manual_lookup,,,False
+ODI,2,,needs_review,,,True
+FO,2,,needs_review,,,True
+PAD,2,,needs_review,,,True
+NSA,2,,needs_review,,,True
+HEAD,2,,needs_review,,,True
+KEVEVAPI,2,,needs_review,,,True
+JP,2,,needs_review,,,True
+SEEDS,2,,needs_review,,,True
+SNV,2,,needs_review,,,True
+BFHI,2,,needs_review,,,True
+AMS,2,,needs_review,,,True
+OER,2,,needs_review,,,True
+TTC,2,,needs_review,,,True
+TODAY,2,,needs_review,,,True
+KTTC,2,,needs_review,,,True
+VR,2,,needs_review,,,True
+QR,2,Quick Response,manual_lookup,,,False
+SNE,2,,needs_review,,,True
+KSL,2,,needs_review,,,True
+UNHCR,2,United Nations High Commissioner for Refugees,manual_lookup,,,False
+CDC,2,,needs_review,,,True
+TOT,2,,needs_review,,,True
+ELRC,2,,needs_review,,,True
+GAIN,2,,needs_review,,,True
+UNFSS,2,,needs_review,,,True
+UNSDCF,2,,needs_review,,,True
+ENOUGH,2,,needs_review,,,True
+ECD,2,,needs_review,,,True
+ACSM,2,,needs_review,,,True
+FNRP,2,,needs_review,,,True
+SFSA,2,,needs_review,,,True
+MICCA,2,,needs_review,,,True
+KMFRI,2,,needs_review,,,True
+SCM,2,,needs_review,,,True
+SACCO,2,Savings and Credit Cooperative Organization,manual_lookup,,,False
+IFES,2,,needs_review,,,True
+GNDEM,2,,needs_review,,,True
+KPC,2,,needs_review,,,True
+CCF,2,,needs_review,,,True
+CRJ,2,,needs_review,,,True
+NEMA,2,National Environment Management Authority,manual_lookup,,,False
+PPLC,2,,needs_review,,,True
+EOP,2,,needs_review,,,True
+ECK,2,,needs_review,,,True
+ICDN,2,,needs_review,,,True
+JKIA,2,Jomo Kenyatta International Airport,manual_lookup,,,False
+CFS,2,,needs_review,,,True
+MSA,2,,needs_review,,,True
+EGMS,2,,needs_review,,,True
+NDITC,2,,needs_review,,,True
+TAIFA,2,,needs_review,,,True
+PSS,2,,needs_review,,,True
+IIEC,2,,needs_review,,,True
+DOSHS,2,,needs_review,,,True
+PRAPS,2,,needs_review,,,True
+NSCVE,2,,needs_review,,,True
+CSA-SDG,2,,needs_review,,,True
+LPG,2,Liquefied Petroleum Gas,manual_lookup,,,False
+UNDP,2,United Nations Development Programme,manual_lookup,,,False
+KEPSSI,2,,needs_review,,,True
+BBC,2,,needs_review,,,True
+JLTM,2,,needs_review,,,True
+CVE,2,,needs_review,,,True
+NIWETU,2,,needs_review,,,True
+PBO,2,,needs_review,,,True
+WIBA,2,,needs_review,,,True
+KLIF,2,,needs_review,,,True
+NACCSC,2,,needs_review,,,True
+ODPP,2,,needs_review,,,True
+UK,2,United Kingdom,manual_lookup,,,False
+LGBTQ,2,,needs_review,,,True
+AK,2,,needs_review,,,True
+TUKO,2,,needs_review,,,True
+CECM,2,,needs_review,,,True
+GUDDOOMIYAHA,2,,needs_review,,,True
