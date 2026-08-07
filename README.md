@@ -164,6 +164,32 @@ vocabulary size estimates, and source composition breakdowns — produced via
 a Jupyter notebook template shared across both language tracks so results
 are directly comparable.
 
+---
+### Documentation, Notebooks & Report Access
+
+The complete Week 2 preprocessing methodology, exploratory analysis, visualizations, dataset statistics, and findings are documented in the full report:
+
+📄 **Full Week 2 Preprocessing & EDA Report:**  
+[View the complete report here](reports/Week2_Preprocessing_EDA_Report/Week2_Preprocessing_EDA_Report.docx)
+
+The complete EDA notebooks used to generate the analysis, visualizations, and dataset quality assessments are available below:
+
+📓 **Dholuo/Somali Preprocessing & EDA Notebook:**  
+[Access notebook here](notebooks/preprocesssing_eda/dholuo_somali_preprocessing_eda.ipynb)
+
+📓 **Ekegusii Preprocessing & EDA Notebook:**  
+[Access notebook here](notebooks/preprocesssing_eda/preprocessing_eda_ekegusii.ipynb)
+
+These notebooks provide a reproducible record of:
+- Dataset loading and inspection
+- Cleaning verification
+- Statistical summaries
+- Visualization generation
+- Language-track comparisons
+- Final dataset readiness checks before model training
+
+---
+
 ### Week 2 outcome
 - `psa_dataset_dholuo_somali.csv`: **16,029 rows** (5,112 from the original
   baseline + 10,917 from fact-grounded generation), zero duplicates, zero
