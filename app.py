@@ -31,14 +31,14 @@ st.set_page_config(
 # =============================================================================
 USE_MOCK_MODELS = False  # set True to demo the UI without loading real weights
 
-# NOTE: paths below use /root/Models/... because modal_app.py bundles the
-# local "Models" folder into the container at that path via add_local_dir().
-# If you're running this locally (not on Modal), change these back to
-# relative paths like "./Models/ekegusii_models/nllb-ekegusii-final".
+# NOTE: paths below are Hugging Face Hub repo IDs (SelmahT's account) --
+# from_pretrained() downloads and caches these automatically. No local
+# "Models" folder needed for deployment (e.g. HF Spaces, Modal without a
+# bundled local dir, or any environment with internet access).
 MODEL_CONFIG = {
     "Ekegusii": {
         "ready": True,
-        "path": "Models/ekegusii_models/nllb-ekegusii-final",
+        "path": "SelmahT/nllb-ekegusii-final",
         "arch": "nllb",
         "lang_code": "guz_Latn",
         "pairs": [
@@ -55,7 +55,7 @@ MODEL_CONFIG = {
     },
     "Dholuo": {
         "ready": True,
-        "path": "Models/dholuo_models/nllb-dholuo-final",
+        "path": "SelmahT/nllb-dholuo-final",
         "arch": "nllb",
         "lang_code": "luo_Latn",   # already a native NLLB-200 token -- no embedding-add trick needed
         "pairs": [
@@ -74,7 +74,7 @@ MODEL_CONFIG = {
     },
     "Somali": {
         "ready": True,
-        "path": "Models/somali_models/mt5-somali-final",
+        "path": "SelmahT/mt5-somali-final",
         "arch": "mt5",
         "lang_code": "som",
         "pairs": [
@@ -85,9 +85,7 @@ MODEL_CONFIG = {
             # Patricia's report only gives one overall sacreBLEU figure (epoch 6),
             # no chrF and no per-direction breakdown yet -- stored as "bleu" since
             # sacreBLEU and BLEU share the same 0-100 scale, chrf left as None so
-            # the Performance page displays "N/A" instead of crashing (the
-            # original {"sacrebleu": 69.87} key name would have crashed this
-            # page outright -- the display code requires exactly "bleu"/"chrf").
+            # the Performance page displays "N/A" instead of crashing.
             # NOTE: 69.87 is dramatically higher than Ekegusii's rigorously
             # validated 15-18 BLEU range, and close to Dholuo's already-flagged
             # 71.77 -- both warrant the same sanity check (train/test leakage,
@@ -202,8 +200,8 @@ def load_model(lang_key: str):
     cfg = MODEL_CONFIG[lang_key]
     if USE_MOCK_MODELS or not cfg["ready"]:
         return None, None
-    tokenizer = AutoTokenizer.from_pretrained(cfg["path"], local_files_only=True)
-    model = AutoModelForSeq2SeqLM.from_pretrained(cfg["path"], local_files_only=True)
+    tokenizer = AutoTokenizer.from_pretrained(cfg["path"])
+    model = AutoModelForSeq2SeqLM.from_pretrained(cfg["path"])
     if torch.cuda.is_available():
         model = model.to("cuda")
     model.eval()
