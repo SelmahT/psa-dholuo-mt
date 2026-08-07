@@ -4,9 +4,7 @@ A neural machine translation system for three underrepresented Kenyan languages 
 **Ekegusii**, **Dholuo**, and **Somali** — built by fine-tuning multilingual base
 models (NLLB-200 and mT5) on a cleaned corpus of public service announcements (PSAs).
 
-Live demo built with Streamlit; deployable locally, on Hugging Face Spaces, or
-on Modal (GPU).
-
+Get our live deployed app [here](https://psa-dholuo-mt-ywk9nbhs9mynmfv3wtczvw.streamlit.app/).
 ---
 
 ## Project Overview
