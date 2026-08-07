@@ -206,21 +206,94 @@ These notebooks provide a reproducible record of:
 
 ### Model assignments
 
-| Person | Model | Target Language | New-Language Workaround? |
-|---|---|---|---|
-| Trizzah | mT5 | Dholuo | Partial — mT5 has no per-language embedding to add; relies on consistent text-prefix fine-tuning instead. |
-| Patricia | mT5 | Somali | No — natively supported by mT5. |
-| Rencia | mT5 | Ekegusii | Yes — new language token added, embeddings resized and warm-started before fine-tuning. |
-| Steve | NLLB | Dholuo | No — Dholuo (`luo_Latn`) is a native NLLB-200 token. |
-| Selmah | NLLB | Ekegusii | Yes — same new-token adaptation approach as Rencia's mT5 track, applied to NLLB. |
+| Person   | Model | Target Language | New-Language Workaround? |
+| -------- | ----- | --------------- | ------------------------- |
+| Trizzah  | mT5   | Dholuo          | Partial — mT5 has no per-language embedding addition mechanism; training relies on consistent text-prefix fine-tuning instead. |
+| Patricia | mT5   | Somali          | No — Somali is natively supported by mT5. |
+| Rencia   | mT5   | Ekegusii        | Yes — a new language token was introduced, embeddings were resized, and warm-start initialization was applied before fine-tuning. |
+| Steve    | NLLB  | Dholuo          | No — Dholuo (`luo_Latn`) is already supported as a native NLLB-200 language token. |
+| Selmah   | NLLB  | Ekegusii        | Yes — the same new-language token adaptation approach was applied by extending NLLB with Ekegusii support before fine-tuning. |
+
+---
 
 ### Training requirements
-- 10 epochs, batch training, `save_strategy="epoch"` for automatic
-  checkpointing (no manual checkpoint saving).
-- Google Drive mounted before training, to prevent checkpoint loss from a
-  runtime disconnect (a real risk experienced earlier in the project).
-- Each member's submission: final trained model + a report covering
-  per-epoch performance, challenges faced, and limitations.
+
+All models followed a standardized training workflow to ensure comparable experimentation across languages:
+
+- Training was performed for **10 epochs** using batch-based fine-tuning.
+- `save_strategy="epoch"` was used to automatically save checkpoints after every epoch.
+- Google Drive was mounted before training to reduce the risk of checkpoint loss caused by runtime disconnections.
+- Each team member submitted:
+  - The final fine-tuned model checkpoint.
+  - A training report documenting epoch-level performance, challenges encountered, and model limitations.
+
+---
+
+### Model adaptation approaches
+
+Because some target languages are low-resource and not directly supported by pretrained multilingual models, different adaptation strategies were applied:
+
+- **Native language support**
+  - Languages already present in the pretrained tokenizer vocabulary (e.g., Dholuo in NLLB and Somali in mT5) were fine-tuned directly.
+
+- **New language token adaptation**
+  - For Ekegusii, additional language tokens were introduced.
+  - Tokenizer vocabulary was extended.
+  - Model embeddings were resized.
+  - New embeddings were warm-started before fine-tuning to allow the pretrained model to adapt to the new language.
+
+- **Prefix-based fine-tuning**
+  - For mT5 Dholuo, consistent text prefixes were used because mT5 does not support the same explicit language-token extension mechanism as NLLB.
+
+---
+
+### Training Documentation & Results Access
+
+The complete training process, model configurations, experiments, evaluation results, challenges, and limitations are documented in the individual project reports:
+
+📄 **NLLB Ekegusii Training Report:**  
+[View report here](reports/Week3_training_reports/Ekegusii_NLLB/Project_Report.docx)
+
+📄 **mT5 Somali Training Report:**  
+[View report here](reports/Week3_training_reports/mT5_Somali_Report.docx)
+
+📄 **NLLB Dholuo Training Report:**  
+[View report here](reports/Week3_training_reports/NLLB_Dholuo_Report.docx)
+
+---
+
+### Training Notebooks
+
+The complete training notebooks used for model fine-tuning, configuration, checkpointing, and evaluation are available below:
+
+📓 **mT5 Somali Training Notebook:**  
+[Access notebook here](notebooks/training_models/train-mt5-somali.ipynb)
+
+📓 **NLLB Dholuo Training Notebook:**  
+[Access notebook here](notebooks/training_models/train-nllb-dholuo.ipynb)
+
+📓 **NLLB Ekegusii Training Notebook:**  
+[Access notebook here](notebooks/training_models/train-nllb-ekegusii.ipynb)
+
+📓 **mT5 Dholuo Training Notebook:**  
+[Access notebook here](notebooks/training_models/train-mt5-dholuo.ipynb)
+
+These notebooks provide a reproducible record of:
+
+- Dataset loading and preparation.
+- Tokenizer configuration.
+- Language-token adaptation steps.
+- Model initialization.
+- Fine-tuning hyperparameters.
+- Training loops and checkpoint management.
+- Validation monitoring.
+- Final model saving and evaluation.
+
+---
+
+### Final trained models
+
+The resulting fine-tuned models from each training track were prepared for downstream evaluation and deployment as part of the final translation system.
 
 ---
 
