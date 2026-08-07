@@ -33,7 +33,7 @@ The end product is an interactive Streamlit app (`app.py`) that lets a user:
 |---|---|
 | Patricia | Source identification (Week 1); mT5 fine-tuning for Somali (Week 3) |
 | Stephen (Steve) | Data collection / scraping (Week 1); NLLB fine-tuning for Dholuo (Week 3) |
-| Selmah | Data engineering & preprocessing lead (Weeks 1–2); NLLB fine-tuning for Ekegusii (Week 3) |
+| Selmah | Data engineering & preprocessing lead (Weeks 1–2); NLLB fine-tuning for Ekegusii (Week 3);deployment of the app(Week 4) |
 | Rencia | Translation QA (Weeks 1–2); mT5 fine-tuning for Ekegusii (Week 3) |
 | Trizzah | Coordination & reporting (Weeks 1–2); mT5 fine-tuning for Dholuo (Week 3) |
 
