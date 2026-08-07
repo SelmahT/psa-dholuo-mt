@@ -16,9 +16,7 @@ Thumbs.db
 .env
 *.key
 
-# Large / raw data (keep sample only, not full raw dumps)
-data/raw/*
-!data/raw/.gitkeep
+
 
 # Large model files -- kept out of git, stored in Drive/Hugging Face instead
 *.zip
