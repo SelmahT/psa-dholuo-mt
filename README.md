@@ -75,13 +75,13 @@ The end product is an interactive Streamlit app (`app.py`) that lets a user:
 
 ## Team
 
-| Member | Focus |
-|---|---|
-| Patricia | Source identification (Week 1); mT5 fine-tuning for Somali (Week 3) |
-| Stephen (Steve) | Data collection / scraping (Week 1); NLLB fine-tuning for Dholuo (Week 3) |
-| Selmah | Data engineering & preprocessing lead (Weeks 1–2); NLLB fine-tuning for Ekegusii (Week 3);deployment of the app(Week 4) |
-| Rencia | Translation QA (Weeks 1–2); mT5 fine-tuning for Ekegusii (Week 3) |
-| Trizzah | Coordination & reporting (Weeks 1–2); mT5 fine-tuning for Dholuo (Week 3) |
+| Member | GitHub | Weeks 1–2 | Week 3 (Fine-tuning) | Week 4 |
+|---|---|---|---|---|
+| Selmah | [@SelmahT](https://github.com/SelmahT) | Data engineering & preprocessing lead | NLLB fine-tuning — Ekegusii | App deployment |
+| Stephen (Steve) | [@Stephen-Austine](https://github.com/Stephen-Austine) | Data collection / scraping | NLLB fine-tuning — Dholuo | — |
+| Patricia | [@PatriciaKiarie04](https://github.com/PatriciaKiarie04) | Source identification | mT5 fine-tuning — Somali | — |
+| Rencia | [@RenciaSeda](https://github.com/RenciaSeda) | Translation QA | mT5 fine-tuning — Ekegusii | — |
+| Trizzah | [@Trizah250000](https://github.com/Trizah250000) | Coordination & reporting | mT5 fine-tuning — Dholuo | — |
 
 ---
 
