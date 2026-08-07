@@ -76,6 +76,34 @@ entries, and known challenges.
 
 ---
 
+### Documentation, Dataset & Pipeline Access
+
+The complete documentation of the data sourcing process, collection methodology, cleaning procedures, translation workflow, and challenges is available in the comprehensive Week 1 report:
+
+📄 **Full Week 1 Data Collection Report:**  
+[View the complete report here](reports/Week1_Collecting_Data_Report/Week1_Collecting_data_report.docx)
+
+The final processed dataset used for subsequent model development and experimentation is available here:
+
+📂 **Processed Dataset:**  
+[Access the final collected data here](data/processed/)
+
+The complete data preparation pipeline, including scripts used for dataset merging, cleaning, translation generation, formatting, and preparation of training-ready datasets is available here:
+
+💻 **Data Processing & Pipeline Scripts:**  
+[View all data processing scripts here](src/)
+
+These scripts contain the reproducible workflow used to transform raw collected data into the final datasets used for model training, including:
+- Dataset merging and consolidation
+- Data cleaning and normalization
+- Translation generation and alignment
+- Synthetic data augmentation preparation
+- Dataset formatting for multilingual machine translation models
+- Final preprocessing before model training
+
+---
+
+
 ## Week 2 — Preprocessing & EDA
 
 ### Dataset architecture decision
