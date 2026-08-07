@@ -6,7 +6,54 @@ models (NLLB-200 and mT5) on a cleaned corpus of public service announcements (P
 
 Get our live deployed app [here](https://psa-dholuo-mt-ywk9nbhs9mynmfv3wtczvw.streamlit.app/).
 
+## Table of Contents
 
+- [Project Overview](#project-overview)
+- [Team](#team)
+- [Week 1 — Data Sourcing & Collection](#week-1--data-sourcing--collection)
+  - [Scope Decisions](#scope-decisions)
+  - [Sources](#sources)
+  - [Collection & Early Cleaning Challenges](#collection--early-cleaning-challenges)
+  - [Documentation, Dataset & Pipeline Access](#documentation-dataset--pipeline-access)
+
+- [Week 2 — Preprocessing & EDA](#week-2--preprocessing--eda)
+  - [Dataset Architecture Decision](#dataset-architecture-decision)
+  - [Ekegusii Reintroduced](#ekegusii-reintroduced)
+  - [Preprocessing Pipeline](#preprocessing-pipeline)
+  - [EDA](#eda)
+  - [Documentation, Notebooks & Report Access](#documentation-notebooks--report-access)
+  - [Week 2 Outcome](#week-2-outcome)
+
+- [Week 3 — Model Training](#week-3--model-training)
+  - [Model Assignments](#model-assignments)
+  - [Training Requirements](#training-requirements)
+  - [Model Adaptation Approaches](#model-adaptation-approaches)
+  - [Training Documentation & Results Access](#training-documentation--results-access)
+  - [Training Notebooks](#training-notebooks)
+  - [Final Trained Models](#final-trained-models)
+
+- [Week 4 — Evaluation & Deployment](#week-4--evaluation--deployment)
+  - [Model Performance](#model-performance)
+  - [Known Issues & Limitations](#known-issues--limitations)
+  - [Institutional Glossary](#institutional-glossary)
+  - [Project Structure](#project-structure)
+  - [Running Locally](#running-locally)
+
+- [Deployment](#deployment)
+  - [Deployment Architecture](#deployment-architecture)
+  - [Deployment Workflow](#deployment-workflow)
+  - [Alternative Deployment Options](#alternative-deployment-options)
+    - [Hugging Face Spaces](#hugging-face-spaces)
+    - [Modal GPU Deployment](#modal-gpu-backed-deployment)
+    - [Docker Deployment](#docker-deployment)
+  - [Tech Stack](#tech-stack)
+  - [Deployment Challenges & Solutions](#deployment-challenges--solutions)
+
+- [Data Pipeline Summary (End-to-End)](#data-pipeline-summary-end-to-end)
+
+- [Closing Remarks](#closing-remarks)
+
+- [Future Work](#future-work)
 
 ## Project Overview
 
@@ -396,43 +443,318 @@ noticeably slower than a GPU-backed deployment — expect longer translation
 times, particularly on first load per language (model weights loading from
 disk) and during beam search (`num_beams=4`).
 
-### Deployment Options
+## Deployment
 
-**Hugging Face Spaces (free, recommended for the demo)** — model folders and
-`app.py` uploaded directly to a Space repo via the browser; Spaces builds
-and hosts the app automatically with a public URL, no server management
-needed.
+### Deployment Architecture
 
-**Modal (GPU-backed)** — the app can be deployed with model weights bundled
-directly into the container image:
+The final translation system was deployed as an interactive **Streamlit web application**. To avoid storing large model checkpoints directly inside the application repository, the trained translation models were uploaded and hosted on the **Hugging Face Hub**.
+
+The deployed system follows the architecture below:
+
+```text
+User
+ │
+ ▼
+Streamlit Web Application
+(app.py hosted on GitHub)
+ │
+ ▼
+Loads fine-tuned models from Hugging Face Hub
+ │
+ ▼
+NLLB-200 / mT5 Translation Models
+ │
+ ▼
+Translated PSA Output
+```
+
+The Streamlit application (`app.py`) acts as the interface between users and the trained translation models. Instead of loading local model files, the application retrieves the required tokenizer and model weights directly from their Hugging Face repositories using the Hugging Face Transformers library.
+
+This deployment strategy:
+
+- Keeps the GitHub repository lightweight.
+- Avoids GitHub storage limitations for large model checkpoints.
+- Allows models and application code to be updated independently.
+- Provides a reproducible deployment pipeline through version-controlled model repositories.
+
+---
+
+## Deployment Workflow
+
+The production deployment process consisted of the following stages:
+
+### 1. Model Hosting
+
+The fine-tuned translation models were uploaded to Hugging Face Hub repositories.
+
+The hosted models include:
+
+- **NLLB-200**
+  - Ekegusii translation model
+  - Dholuo translation model
+
+- **mT5**
+  - Somali translation model
+
+Each Hugging Face repository contains the required:
+
+- Model weights
+- Tokenizer files
+- Configuration files
+- Language-specific adaptations
+
+---
+
+### 2. Application Integration
+
+The Streamlit application was configured to load models dynamically from Hugging Face.
+
+The application workflow:
+
+1. The user selects:
+   - Source language.
+   - Target language.
+   - PSA text input.
+
+2. The application identifies the appropriate translation model.
+
+3. The tokenizer and model are loaded from Hugging Face Hub.
+
+4. The input text is passed through the model.
+
+5. The translated PSA output is displayed to the user.
+
+Example model-loading workflow:
+
+```python
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+model_name = "HuggingFace_Model_Repository"
+
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+```
+
+---
+
+### 3. Streamlit Deployment
+
+The final application was deployed using **Streamlit Cloud** through GitHub integration.
+
+Deployment process:
+
+1. The Streamlit application code was pushed to GitHub.
+2. Streamlit Cloud was connected to the GitHub repository.
+3. Dependencies were installed from `requirements.txt`.
+4. The application started and retrieved the translation models from Hugging Face Hub.
+5. The application became publicly accessible through a Streamlit URL.
+
+🚀 **Live deployed application:**  
+[Access the translator here](https://psa-dholuo-mt-ywk9nbhs9mynmfv3wtczvw.streamlit.app/)
+
+---
+
+# Alternative Deployment Options
+
+Although Streamlit Cloud was used for the final deployment, other deployment approaches were explored as alternative hosting strategies.
+
+---
+
+## Hugging Face Spaces
+
+Hugging Face Spaces provides an alternative platform for hosting machine learning demonstrations.
+
+A Space can contain:
+
+- Application code.
+- Model-loading logic.
+- User interface components.
+
+Advantages:
+
+- Direct integration with Hugging Face model repositories.
+- Automatic build and deployment.
+- Public demo URL generation.
+- Minimal server management.
+
+For this project, Hugging Face was primarily used as the **model hosting platform**, while Streamlit Cloud was selected as the final application hosting platform.
+
+---
+
+## Modal (GPU-backed Deployment)
+
+Modal was explored as an alternative deployment option for GPU-enabled inference.
+
+Deployment commands:
+
 ```powershell
 pip install modal
 modal setup
 modal deploy modal_app.py
 ```
-This provisions a GPU container, bundling `app.py` and the local `Models/`
-folder into the image. GPU inference removes the CPU bottleneck from beam
-search, making translation near-instant compared to local CPU runs.
 
-### Tech Stack
-- **UI**: Streamlit
-- **Models**: NLLB-200 (Ekegusii, Dholuo), mT5 (Ekegusii, Dholuo, Somali)
-- **ML framework**: PyTorch, Hugging Face Transformers
-- **Deployment**: Hugging Face Spaces, optionally Modal (GPU) or Docker
+The Modal deployment approach packages:
+
+- Streamlit application code.
+- Required Python dependencies.
+- Model files or model-loading configuration.
+
+into a GPU-enabled container.
+
+GPU inference provides significant performance improvements compared to CPU execution, especially for larger multilingual models such as NLLB-200 where beam search generation can become computationally expensive.
+
+Benefits:
+
+- Faster translation inference.
+- GPU acceleration.
+- Scalable container-based deployment.
 
 ---
 
-## Data Pipeline Summary (end to end)
+## Docker Deployment
 
+The application can also be deployed using Docker by packaging:
+
+- Streamlit application code.
+- Python dependencies.
+- Runtime environment.
+- Model-loading configuration.
+
+Docker provides a portable deployment option suitable for:
+
+- Local hosting.
+- Cloud servers.
+- Institutional infrastructure.
+
+---
+
+# Tech Stack
+
+| Component | Technology |
+|---|---|
+| User Interface | Streamlit |
+| Programming Language | Python |
+| Translation Models | NLLB-200, mT5 |
+| Target Languages | Ekegusii, Dholuo, Somali |
+| Machine Learning Framework | PyTorch |
+| NLP Framework | Hugging Face Transformers |
+| Model Hosting | Hugging Face Hub |
+| Application Hosting | Streamlit Cloud |
+| Version Control | GitHub |
+| Alternative Deployment | Hugging Face Spaces, Modal (GPU), Docker |
+
+---
+
+# Deployment Challenges & Solutions
+
+| Challenge | Solution |
+|---|---|
+| Large model files exceeded GitHub storage limits | Hosted models externally on Hugging Face Hub |
+| Streamlit Cloud resource limitations | Avoided bundling multi-gigabyte checkpoints inside the repository |
+| Maintaining reproducibility | Linked application code to specific Hugging Face model repositories |
+| Slow CPU inference | Explored GPU-backed deployment using Modal |
+| Managing application dependencies | Used `requirements.txt` for automated environment setup |
+---
+
+## Data Pipeline Summary (End-to-End)
+
+The complete project workflow follows a reproducible end-to-end machine translation pipeline, beginning with raw public service announcement (PSA) data collection and ending with a deployed translation application.
+
+```text
+Raw PSA Corpus
+(scraped sources + instructor-provided datasets)
+        │
+        ▼
+Data Cleaning & Quality Control
+(encoding repair, mojibake correction,
+Unicode normalization, noise removal)
+        │
+        ▼
+Content Filtering
+(boilerplate removal, off-topic detection,
+domain validation)
+        │
+        ▼
+Language-Specific Processing
+(code-switch detection,
+language validation,
+glossary extraction)
+        │
+        ▼
+Dataset Enhancement
+(fact-grounded synthetic augmentation
+for Dholuo/Somali low-resource tracks)
+        │
+        ▼
+Dataset Preparation
+(aligned language pairs,
+train/validation/test split,
+leak prevention)
+        │
+        ▼
+Model Development
+(baseline fine-tuning of NLLB-200 and mT5)
+        │
+        ▼
+Model Improvement
+(error analysis,
+error-driven oversampling,
+targeted fine-tuning)
+        │
+        ▼
+Model Evaluation
+(BLEU, chrF, SacreBLEU,
+qualitative analysis,
+human evaluation in progress)
+        │
+        ▼
+Model Hosting
+(fine-tuned models uploaded to Hugging Face Hub)
+        │
+        ▼
+Application Deployment
+(Streamlit web application)
 ```
-Raw PSA corpus (scraped + instructor-provided)
-  → encoding / mojibake repair
-  → boilerplate & off-topic removal
-  → code-switch detection & glossary extraction
-  → fact-grounded synthetic augmentation (Dholuo/Somali track only)
-  → leak-safe train / val / test split
-  → baseline fine-tune
-  → error-driven oversampling
-  → evaluation (BLEU, chrF, SacreBLEU, qualitative review, human evaluation in progress)
-  → Streamlit deployment
-```
+
+The final system integrates the complete machine translation workflow:
+
+- Data collection from verified Kenyan PSA sources.
+- Language-specific preprocessing and quality assurance.
+- Low-resource dataset enhancement techniques.
+- Multilingual model adaptation and fine-tuning.
+- Automated and human-centered evaluation.
+- Deployment of the final translation system as an accessible web application.
+
+---
+
+# Closing Remarks
+
+This project demonstrates the challenges and opportunities involved in developing machine translation systems for **low-resource Kenyan languages**. By combining multilingual pretrained models, careful dataset engineering, language-specific adaptation strategies, and transparent documentation, we developed a practical translation pipeline for **Ekegusii, Dholuo, and Somali** public service communication.
+
+The project highlights that improving translation quality for underrepresented languages requires more than model selection alone. Reliable results depend heavily on:
+
+- High-quality and domain-relevant datasets.
+- Careful preprocessing and validation.
+- Appropriate handling of languages missing from pretrained model vocabularies.
+- Continuous error analysis and model refinement.
+- Evaluation approaches that combine automatic metrics with human judgment.
+
+Although challenges remain, including limited parallel data availability and the difficulty of fully capturing linguistic nuances in low-resource languages, this work provides a foundation for future expansion into additional Kenyan languages and broader public communication applications.
+
+The resulting system demonstrates the potential of modern multilingual NLP approaches to improve accessibility, information sharing, and digital inclusion for communities whose languages remain underrepresented in artificial intelligence technologies.
+
+---
+
+## Future Work
+
+Potential directions for future improvement include:
+
+- Expanding the dataset with additional verified PSA sources.
+- Incorporating more native-speaker evaluation and feedback.
+- Improving domain-specific terminology handling through larger glossaries.
+- Exploring larger multilingual foundation models.
+- Developing continuous learning pipelines as new PSA content becomes available.
+- Extending support to additional Kenyan languages.
+
+---
