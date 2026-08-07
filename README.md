@@ -34,6 +34,7 @@ Get our live deployed app [here](https://psa-dholuo-mt-ywk9nbhs9mynmfv3wtczvw.st
 
 - [Week 4 — Evaluation & Deployment](#week-4--evaluation--deployment)
   - [Model Performance](#model-performance)
+  - [Native-Speaker Validation](#native-speaker-validation)
   - [Known Issues & Limitations](#known-issues--limitations)
   - [Institutional Glossary](#institutional-glossary)
   - [Project Structure](#project-structure)
@@ -358,9 +359,11 @@ The resulting fine-tuned models from each training track were prepared for downs
 | Somali | Overall (epoch 6) | 69.87 | N/A | SacreBLEU only, no chrF reported |
 
 **A note on the Dholuo numbers**: they are markedly higher than Ekegusii's —
-plausible given Dholuo already has native NLLB-200 support, but this has not
-yet been independently sanity-checked for train/test leakage. Treat as
-provisional pending review.
+plausible given Dholuo already has native NLLB-200 support, and now partly
+corroborated by native-speaker review (see [Native-Speaker Validation](#native-speaker-validation)
+below). That said, this has not yet been independently sanity-checked for
+train/test leakage. Treat the leakage question as open even though
+translation quality has human backing.
 
 chrF is generally more informative than BLEU for morphologically rich
 languages like Ekegusii, since BLEU penalizes valid word-ending variation as
@@ -369,6 +372,21 @@ a full mismatch.
 The Ekegusii oversampling results above reflect a corrected re-run after an
 earlier labeling bug was identified and fixed during evaluation — the
 original (bugged) numbers are superseded and should not be cited.
+
+### Native-Speaker Validation
+
+Dholuo translation outputs were reviewed by a native speaker for accuracy
+and fluency, providing a human-judgment check alongside the automatic
+BLEU/chrF scores above. The full review — methodology, sample selection,
+and per-item ratings/comments — is documented in:
+
+📓 **Dholuo Translation Validation Notebook:**  
+[Access notebook here](notebooks/validation/Dholuo_Translation_Validation.ipynb)
+
+This human review is what allows the Dholuo scores above to be treated as
+provisionally corroborated rather than purely automatic-metric-based (see
+the caveat on train/test leakage above, which the native-speaker review
+does not by itself rule out).
 
 ### Known Issues & Limitations
 
@@ -395,9 +413,11 @@ original (bugged) numbers are superseded and should not be cited.
 **Evaluation**
 - COMET could not be computed in the current environment due to a
   dependency conflict.
-- Human evaluation by native speakers is in progress; no confirmed native
-  Ekegusii reviewer was available on the team as of Week 3, addressed as a
-  documented limitation rather than a blocker.
+- Human evaluation by native speakers is complete for **Dholuo** (see
+  [Native-Speaker Validation](#native-speaker-validation)) and still in
+  progress for the other languages; no confirmed native Ekegusii reviewer
+  was available on the team as of Week 3, addressed as a documented
+  limitation rather than a blocker.
 
 ### Institutional Glossary
 Certain institutional acronyms (e.g. `TVET`, `IEBC`, `KCSE`, `KRA`) have no
@@ -423,7 +443,8 @@ psa-dholuo-mt/
 │   └── knowledge_base/        # kenya_facts.json — real institutions used for grounded generation
 ├── notebooks/
 │   ├── preprocessing_eda/      # data cleaning and exploratory analysis
-│   └── training_models/        # fine-tuning notebooks per language/architecture
+│   ├── training_models/        # fine-tuning notebooks per language/architecture
+│   └── validation/             # native-speaker translation validation notebooks
 ├── src/                        # data collection, cleaning, and translation scripts
 ├── reports/                    # weekly progress reports (Weeks 1–4)
 └── docs/                       # project brief, category definitions, planning docs
